@@ -1,4 +1,4 @@
-function[] = M2_Main_046_08(vmax, km, V_0)
+function[] = M2_Main_046_08()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ENGR 132 
 % Program Description 
@@ -8,16 +8,16 @@ function[] = M2_Main_046_08(vmax, km, V_0)
 % M2_Main_046_08()
 %
 % Input Arguments
-% vmax = the maximum velocity (μM/min) of the reaction
-% km: K_m value of enzyme
-% v0
+% none
 %
 % Output Arguments
 % none
 %
 % Assignment Information
 %   Assignment:     M02
-%   Team member:    Bernadette Goeppner, bgoeppn@purdue.edu 
+%   Team member:    Bernadette Goeppner, bgoeppn@purdue.edu, Celia Enyrich, 
+%                   ceyrich@purdue.edu, Daniel McGurik, dmcguirk@purdue.edu
+%                   Jasper Koliba, jkoliba@purdue.edu
 %   Team ID:        046-08
 %   Academic Integrity:
 %     [] We worked with one or more peers but our collaboration
@@ -57,7 +57,7 @@ for j = 1:5
     y_lin = vo_out;
     x_lin = vo_out ./ conc_out;
 
-    %linearizing the data and determing the  
+    %linearizing the data and determing Km 
     coefs = polyfit(x_lin, y_lin, 1);
     km(j) = coefs(1);
     vmax(j) = coefs(2);
