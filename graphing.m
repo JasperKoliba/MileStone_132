@@ -1,4 +1,4 @@
-function graphing(concentration_array, given_data, vo_array)
+function graphing(concentration_array, given_data, vo_array,v_max,K_m)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ENGR 132 
 % Program Description 
@@ -27,13 +27,24 @@ function graphing(concentration_array, given_data, vo_array)
 %% ____________________
 %% INITIALIZATION
 given_data = readmatrix("Data_PGOX50_enzyme.csv");
-concentration_array = [3.75 7.5 15 30 65 125 250 500 1000 2000]';
-vo_array = [0.025,0.049,0.099,0.176,0.329,0.563,0.874,1.192,1.361,1.603]';
-time = given_data(9:end,1);
+concentration_array = [3.75 7.5 15 30 65 125 250 500 1000 2000];
+vo_array = [0.025,0.049,0.099,0.176,0.329,0.563,0.874,1.192,1.361,1.603];
+v_max = 1.806;
+k_m = 269.74;
+found_v_array = zeros(length(benchmark_vo_array));
+time = given_data(9:end,1); %time in seconds
 
 %% ____________________
 %% CALCULATIONS
+for i = 1:1:10
+    found_v_array(i) = (v_max * concentration_array(i))/(k_m + concentration_array(i));
+end
 
+found_vo_array = [0.0247632454568723 0.0488565863511759 0.0951394254407530...
+    0.180756655768333 0.350690087829360 0.571895424836601 0.868703582560511 ...
+    1.17312339231429 1.42233843148991 1.59137169896111];
+
+sse = sum((found_vo_array - vo_array).^2);
 %% ____________________
 %% FORMATTED TEXT/FIGURE DISPLAYS
 figure(1)
@@ -151,8 +162,10 @@ hold off
 
 figure(2)
 
-plot(concentration_array,vo_array,"-k")
+plot(concentration_array,found_vo_array,"-k")
 grid on
+hold on
+plot(concentration_array,vo_array,"or")
 title("Found Michaelis-Menten Plot")
 xlabel("Concentration (uM)")
 ylabel("initial velocities (uM/sec)")
