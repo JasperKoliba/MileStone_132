@@ -1,11 +1,11 @@
-function M3_Main_046_08()
+function M4_Main_046_08()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ENGR 132 
 % Program Description 
 % Main file for M2. Calls subfunctions.
 %
 % Function Call
-% M3_Main_046_08()
+% M4_Main_046_08()
 %
 % Input Arguments
 % none
@@ -35,7 +35,7 @@ data(isnan(data))=0;
 %% CALCULATIONS
 
 % calling the vo function to get hte vo values for each test
-vo_array = M3_Algorithm_046_08(data);
+vo_array = M4_Algorithm_046_08(data);
 vo_array = vo_array(2:length(vo_array));
 
 %initializing arrays for later calculaions
@@ -44,11 +44,22 @@ vo_array = vo_array(2:length(vo_array));
 %conc_out = zeros([10, 1]);
 
 % get concentration and Vo
+figure(1)
+sgtitle("Velocity vs Concentration MM for Five Different Enzyme", fontsize=8)
+enzymes = ["A", "B", "C", "D", "E"];
 for j = 0:4
 
     % vecotrized for loop improvement
     conc_out = data(3, 2:11);
     vo_out = ((vo_array(20*j + 1: 20*j + 10) + vo_array(20*j + 11: 20*j + 20)) / 2);
+    
+    subplot(2, 3, j + 1)
+    plot(conc_out, vo_out, '-*', MarkerSize=4)
+    ylabel("Initial Velocity (uM/sec)", fontsize = 6)
+    xlabel("Concentration (uM)", fontsize = 6)
+    tit = "Enzyme: NextGen: " +  enzymes(j + 1);
+    title(tit, fontsize = 6)
+    grid on
     
     % M3 Method
     %for i = 1:10
